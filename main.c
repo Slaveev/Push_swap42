@@ -17,6 +17,17 @@ void	leaks(void)
 	system("leaks push_swap");
 }
 
+void print_stack(const char *name, t_stack *stack)
+{
+    printf("%s: ", name);
+    while (stack)
+    {
+        printf("%d ", stack->nbr);
+        stack = stack->next;
+    }
+    printf("\n");
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_one;
@@ -24,13 +35,14 @@ int	main(int argc, char **argv)
 
 	stack_one = NULL;
 	stack_two = NULL;
-	atexit(leaks);
+	// atexit(leaks);
 	if (arguments_checker(argc, argv) != 0)
 		return (1);
 	init_stack(&stack_one, argv);
 	if (if_sorted(stack_one) == 0)
 		return (0);
 	check_sort(&stack_one, &stack_two);
+	print_stack("Sorted Stack A", stack_one);
 	free_stack(&stack_one);
 	if (argc == 2)
 		free_array(argv);
