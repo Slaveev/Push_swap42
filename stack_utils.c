@@ -48,17 +48,17 @@ t_stack	*biggest_node(t_stack *stack)
 	return (big_node);
 }
 
-int	ft_stack_len(t_stack *stack)
-{
-	int	i;
+// int	ft_stack_len(t_stack *stack)
+// {
+// 	int	i;
 
-	i = 0;
-	if (stack == NULL)
-		return (0);
-	while (stack)
-	{
-		i++;
-		stack = stack->next;
-	}
-	return (i);
-}
+// 	i = 0;
+// 	if (stack == NULL)
+// 		return (0);
+// 	while (stack)
+// 	{
+// 		i++;
+// 		stack = stack->next;
+// 	}
+// 	return (i);
+// }
