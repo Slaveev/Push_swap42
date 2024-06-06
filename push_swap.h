@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdbool.h>
-# include "libft/libft.h"
+# include <math.h>
 
 typedef struct s_stack
 {
@@ -41,7 +41,7 @@ int		error_duplicate(t_stack *stack, int n);
 int		is_all_digit(char *argv);
 int		syntax_error(char *str);
 int		error_duplicate(t_stack *stack, int n);
-int		is_all_digit(char *argv);
+// int		is_all_digit(char *argv);
 int		syntax_error(char *str);
 
 // init_utils
@@ -60,11 +60,19 @@ int		ft_stack_len(t_stack *stack);
 t_stack	*find_min(t_stack *stack);
 t_stack	*biggest_node(t_stack *stack);
 
+// algo
+void partition(t_stack **a, t_stack **b, int median);
+void move_min_to_top(t_stack **stack);
+int get_min_index(t_stack *stack);
+void quicksort_stack(t_stack **stack_a, t_stack **stack_b, int size);
+
 // sort
 void	three_sort(t_stack **stack);
 void	five_sort(t_stack **stack_a, t_stack **stack_b);
 void	sort_all(t_stack **stack_a, t_stack **stack_b);
 void	sort(t_stack **stack_a, t_stack **stack_b);
+int compare_int(const void *a, const void *b);
+int	find_median(t_stack *stack, int size);
 
 // operations
 void	sa(t_stack **a);
@@ -75,6 +83,11 @@ void	ra(t_stack **a);
 void	rb(t_stack **b);
 void	rra(t_stack **a);
 void	rrb(t_stack **b);
+void	rrr_sub(t_stack **b);
+void	rrr(t_stack **a, t_stack **b);
+
+char	**ft_split(char const *s, char c);
+void print_stack(const char *name, t_stack *stack);
 
 // void		set_target_b(t_stack *a, t_stack *b);
 // void		init_nodes_b(t_stack *a, t_stack *b);
