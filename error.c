@@ -38,30 +38,17 @@ int	arguments_error(char **argv)
 {
 	int		i;
 	long	n;
-	t_stack	*tmp;
 
-	tmp = NULL;
-	i = 0;
+	i = 1;
 	while (argv[i])
 	{
 		n = ft_atol(argv[i]);
 		if (n > INT_MAX || n < INT_MIN)
 			return (1);
 		if (is_all_digit(argv[i]) != 0)
-		{
-			write(1, "here is the error\n", 18);
 			return (1);
-		}
-		append_node(&tmp, n);
-		if (error_duplicate(tmp, n) != 0)
-		{
-			free_stack(&tmp);
-			return (1);
-		}
 		i++;
 	}
-	write(1, "the f\n", 6);
-	free_stack(&tmp);
 	return (0);
 }
 
