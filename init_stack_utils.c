@@ -77,17 +77,20 @@ void	init_stack(t_stack **stack, char **argv)
 	int		i;
 	long	n;
 
-	i = 0;
 	if (arguments_error(argv) != 0)
 	{
-		write(1, "this error\n", 11);
 		ft_error(stack);
 	}
+	i = 1;
 	while (argv[i])
 	{
 		if (syntax_error(argv[i]) != 0)
 			ft_error(stack);
 		n = ft_atol(argv[i]);
+		if (error_duplicate(*stack, n) != 0)
+		{
+			ft_error(stack);
+		}
 		append_node(stack, n);
 		i++;
 	}
