@@ -12,33 +12,39 @@
 
 #include "push_swap.h"
 
-int	error_duplicate(t_stack *stack, int n)
+int error_duplicate(t_stack *stack, int n)
 {
-	t_stack	*tmp;
+    t_stack *tmp;
 
-	tmp = stack;
-	while (tmp)
-	{
-		if (tmp->nbr == n)
-			return (1);
-		tmp = tmp->next;
-	}
-	return (0);
+    tmp = stack;
+    while (tmp)
+    {
+        if (tmp->nbr == n)
+        {
+            return (1);
+        }
+        tmp = tmp->next;
+    }
+    return (0);
 }
 
-int	is_all_digit(char *argv)
+int is_all_digit(char *argv)
 {
-	int	i = 1;
-	while (argv[i])
-	{
-		if (argv[i] >= '0' && argv[i] <= '9')
-			i++;
-		else
-			return (1);
-	}
-	write(1, "not here?\n", 10);
-	return (0);
+    int i = 0;
+
+    if (argv[i] == '\0')
+        return (1);
+    while (argv[i])
+    {
+        if (argv[i] < '0' || argv[i] > '9')
+        {
+            return (1);
+        }
+        i++;
+    }
+    return (0);
 }
+
 
 int	syntax_error(char *str)
 {
