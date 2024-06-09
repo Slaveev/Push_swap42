@@ -71,41 +71,75 @@ void	append_node(t_stack **stack, int n)
 	}
 }
 
+void print_stack_a(t_stack *stack)
+{
+    printf("Stack: ");
+    while (stack)
+    {
+        printf("%d ", stack->nbr);
+        stack = stack->next;
+    }
+    printf("\n");
+}
+
+
 // init_stack TODO //
-void	init_stack(t_stack **stack, char **argv)
-{
-	int		i;
-	long	n;
+void init_stack(t_stack **stack, char **argv) {
+    int i;
+    long n;
 
-	if (arguments_error(argv) != 0)
+    i = 0;
+    while (argv[i])
 	{
-		ft_error(stack);
-	}
-	i = 1;
-	while (argv[i])
-	{
-		if (syntax_error(argv[i]) != 0)
-			ft_error(stack);
-		n = ft_atol(argv[i]);
-		if (error_duplicate(*stack, n) != 0)
-		{
-			ft_error(stack);
-		}
-		append_node(stack, n);
-		i++;
-	}
+        if (syntax_error(argv[i]) != 0)
+            ft_error(stack);
+        n = ft_atol(argv[i]);
+        if (error_duplicate(*stack, n) != 0)
+            ft_error(stack);
+        append_node(stack, n);
+        i++;
+    }
 }
 
-int	arguments_checker(int argc, char **argv)
+
+char **arguments_checker(int argc, char **argv)
 {
-	if (argc == 1)
+    char **new_arg;
+
+    if (argc == 1)
 	{
-		write(2, "wrong arguments\n", 15);
-		return (1);
-	}
+        write(2, "Wrong arguments\n", 16);
+        return (NULL);
+    }
 	else if (argc == 2)
-		argv = ft_split(argv[1], ' ');
+	{
+        new_arg = ft_split(argv[1], ' ');
+        return (new_arg);
+    }
 	else
-		argv += 1;
-	return (0);
+	{
+        new_arg = argv + 1;
+        return (new_arg);
+    }
 }
+
+// char **arguments_checker(int argc, char **argv)
+// {
+//     char **new_argv;
+
+//     if (argc == 1)
+//     {
+//         write(2, "wrong arguments\n", 16);
+//         return (NULL);
+//     }
+//     else if (argc == 2)
+//     {
+//         new_argv = ft_split(argv[1], ' ');
+//         return (new_argv);
+//     }
+//     else
+//     {
+//         new_argv = 
+//     }
+// }
+

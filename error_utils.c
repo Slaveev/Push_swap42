@@ -30,21 +30,19 @@ int error_duplicate(t_stack *stack, int n)
 
 int is_all_digit(char *argv)
 {
-    int i = 0;
+    int i;
 
+    i = 0;
     if (argv[i] == '\0')
         return (1);
     while (argv[i])
     {
         if (argv[i] < '0' || argv[i] > '9')
-        {
             return (1);
-        }
         i++;
     }
     return (0);
 }
-
 
 int	syntax_error(char *str)
 {

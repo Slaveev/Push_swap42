@@ -46,7 +46,7 @@ int	arguments_error(char **argv)
 		if (n > INT_MAX || n < INT_MIN)
 			return (1);
 		if (is_all_digit(argv[i]) != 0)
-			return (1);
+			return (printf("pls\n"), 1);
 		i++;
 	}
 	return (0);

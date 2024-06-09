@@ -47,7 +47,7 @@ int		syntax_error(char *str);
 // init_utils
 void	append_node(t_stack **stack, int n);
 void	init_stack(t_stack **stack, char **argv);
-int		arguments_checker(int argc, char **argv);
+char	**arguments_checker(int argc, char **argv);
 long	ft_atol(const char *str);
 t_stack	*find_last(t_stack *stack);
 
@@ -73,6 +73,14 @@ void	sort_all(t_stack **stack_a, t_stack **stack_b);
 void	sort(t_stack **stack_a, t_stack **stack_b);
 int compare_int(const void *a, const void *b);
 int	find_median(t_stack *stack, int size);
+int get_min_index(t_stack *stack);
+int ft_find_index(t_stack *a, int nbr);
+int min(int a, int b);
+int find_correct_position(t_stack *b, int nbr);
+bool number_in_range(t_stack *stack, int min, int max);
+int find_max_nbr(t_stack *stack);
+int find_min_nbr(t_stack *stack);
+int find_index_in_range(t_stack *stack, int min, int max);
 
 // operations
 void	sa(t_stack **a);

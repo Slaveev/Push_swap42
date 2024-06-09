@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wextra -Werror -Wall -std=c99 -fno-sanitize=address
-SRC = error_utils.c error.c init_stack_utils.c main.c operations_a.c operations_b.c operations_both.c sort_utils.c sort.c stack_utils.c utils.c
+SRC = error_utils.c error.c init_stack_utils.c main.c operations_a.c operations_b.c operations_both.c sort_utils.c sort.c stack_utils.c utils.c sort_small.c sort_utils1.c
 OBJS = $(SRC:.c=.o)
 NAME = push_swap
 LIBS = -lm

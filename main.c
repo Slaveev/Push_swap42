@@ -28,23 +28,42 @@ void print_stack(const char *name, t_stack *stack)
     printf("\n");
 }
 
-int	main(int argc, char **argv)
+void	sort(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack	*stack_one;
-	t_stack	*stack_two;
+	int	stack_size;
 
-	stack_one = NULL;
-	stack_two = NULL;
-	// atexit(leaks);
-	if (arguments_checker(argc, argv) != 0)
-		return (1);
-	init_stack(&stack_one, argv);
-	if (if_sorted(stack_one) == 0)
-		return (0);
-	check_sort(&stack_one, &stack_two);
-	print_stack("Sorted Stack A", stack_one);
-	free_stack(&stack_one);
-	if (argc == 2)
-		free_array(argv);
-	return (0);
+	stack_size = ft_stack_len(*stack_a);
+	if (stack_size == 2)
+		sa(stack_a);
+	else if (stack_size == 3)
+		three_sort(stack_a);
+	else if (stack_size == 5)
+		five_sort(stack_a, stack_b);
+	else
+		sort_all(stack_a, stack_b);
 }
+
+    // atexit(leaks);
+int main(int argc, char **argv)
+{
+    t_stack *stack_one;
+    t_stack *stack_two;
+    char **args;
+
+    stack_one = NULL;
+    stack_two = NULL;
+    args = arguments_checker(argc, argv);
+    if (!args)
+	{
+        return (1);
+	}
+    init_stack(&stack_one, args);
+    if (if_sorted(stack_one) == 0)
+        return (0);
+    check_sort(&stack_one, &stack_two);
+    // free_stack(&stack_one);
+    if (argc == 2)
+        free_array(args);
+    return (0);
+}
+
