@@ -12,114 +12,91 @@
 
 #include "push_swap.h"
 
-void	three_sort(t_stack **stack)
+#include <math.h>
+
+int ft_stack_len(t_stack *stack);
+t_stack *find_max(t_stack *stack);
+int ft_find_index(t_stack *stack, int nbr);
+
+void push_elements_in_chunks(t_stack **stack_a, t_stack **stack_b, int min, int max, int chunk_size)
 {
-	t_stack	*tmp;
+    int chunk_start = min;
+    int chunk_end = min + chunk_size;
 
-	tmp = biggest_node(*stack);
-	if (tmp == *stack)
-		ra(stack);
-	else if (tmp == (*stack)->next)
-		rra(stack);
-	if ((*stack)->nbr > (*stack)->next->nbr)
-		sa(stack);
-}
-
-void	five_sort(t_stack **stack_a, t_stack **stack_b)
-{
-	int		i;
-	t_stack	*min;
-
-	i = 0;
-	while (i < 2)
-	{
-		min = find_min(*stack_a);
-		while (min->nbr != (*stack_a)->nbr)
-			ra(stack_a);
-		pb(stack_a, stack_b);
-		i++;
-	}
-	three_sort(stack_a);
-	i = 0;
-	while (i < 2)
-	{
-		if (*stack_b == NULL)
-			break ;
-		min = find_min(*stack_b);
-		if ((*stack_b)->nbr == min->nbr)
-			rb(stack_b);
-		pa(stack_a, stack_b);
-		// while (min->nbr != (*stack_b)->nbr)
-		// 	rb(stack_b);
-		// pa(stack_a, stack_b);
-	}
-}
-
-int get_min_index(t_stack *stack)
-{
-    t_stack *current = stack;
-    int min_value = INT_MAX;
-    int min_index = 0;
-    int index = 0;
-
-    while (current)
+    while (chunk_start <= max)
     {
-        if (current->nbr < min_value)
+        while (number_in_range(*stack_a, chunk_start, chunk_end))
         {
-            min_value = current->nbr;
-            min_index = index;
+            int index = find_index_in_range(*stack_a, chunk_start, chunk_end);
+            int len = ft_stack_len(*stack_a);
+
+            if (index <= len / 2)
+            {
+                while (index-- > 0)
+                    ra(stack_a);
+            }
+            else
+            {
+                index = len - index;
+                while (index-- > 0)
+                    rra(stack_a);
+            }
+            pb(stack_a, stack_b);
         }
-        current = current->next;
-        index++;
+        chunk_start = chunk_end + 1;
+        chunk_end = chunk_start + chunk_size;
     }
-    return min_index;
 }
 
-void move_min_to_top(t_stack **stack)
+void sort_stack_b(t_stack **stack_a, t_stack **stack_b)
 {
-    int min_index = get_min_index(*stack);
-    int stack_size = ft_stack_len(*stack);
-
-    if (min_index < stack_size / 2)
+    while (*stack_b)
     {
-        while (min_index--)
-            ra(stack);
+        int max_value = find_max_nbr(*stack_b);
+        int index = ft_find_index(*stack_b, max_value);
+        int len = ft_stack_len(*stack_b);
+
+        if (index <= len / 2)
+        {
+            while (index-- > 0)
+                rb(stack_b);
+        }
+        else
+        {
+            index = len - index;
+            while (index-- > 0)
+                rrb(stack_b);
+        }
+        pa(stack_a, stack_b);
+    }
+}
+
+void final_sort(t_stack **stack_a)
+{
+    int min_index = get_min_index(*stack_a);
+    int len = ft_stack_len(*stack_a);
+
+    if (min_index <= len / 2)
+    {
+        while (min_index-- > 0)
+            ra(stack_a);
     }
     else
     {
-        min_index = stack_size - min_index;
-        while (min_index--)
-            rra(stack);
+        min_index = len - min_index;
+        while (min_index-- > 0)
+            rra(stack_a);
     }
 }
 
 void sort_all(t_stack **stack_a, t_stack **stack_b)
 {
-    int stack_size = ft_stack_len(*stack_a);
-    while (stack_size > 3)
-    {
-        move_min_to_top(stack_a);
-        pb(stack_a, stack_b);
-        stack_size--;
-    }
-    three_sort(stack_a);
-    while (ft_stack_len(*stack_b) > 0)
-    {
-        pa(stack_a, stack_b);
-    }
-}
+    int min = find_min_nbr(*stack_a);
+    int max = find_max_nbr(*stack_a);
+    int size = ft_stack_len(*stack_a);
+    int chunk_size = (max - min + 1) / (int)sqrt(size);
 
-void	sort(t_stack **stack_a, t_stack **stack_b)
-{
-	int	stack_size;
-
-	stack_size = ft_stack_len(*stack_a);
-	if (stack_size == 2)
-		sa(stack_a);
-	else if (stack_size == 3)
-		three_sort(stack_a);
-	else if (stack_size == 5)
-		five_sort(stack_a, stack_b);
-	else
-		sort_all(stack_a, stack_b);
+    push_elements_in_chunks(stack_a, stack_b, min, max, chunk_size);
+    sort_stack_b(stack_a, stack_b);
+    final_sort(stack_a);
 }

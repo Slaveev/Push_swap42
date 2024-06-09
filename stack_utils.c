@@ -48,17 +48,49 @@ t_stack	*biggest_node(t_stack *stack)
 	return (big_node);
 }
 
-int	ft_stack_len(t_stack *stack)
+int ft_stack_len(t_stack *stack)
 {
-	int	i;
+    int len;
+	
+	len = 0;
+    while (stack)
+    {
+        len++;
+        stack = stack->next;
+    }
+    return len;
+}
 
-	i = 0;
-	if (stack == NULL)
-		return (0);
-	while (stack)
-	{
-		i++;
-		stack = stack->next;
-	}
-	return (i);
+int find_correct_position(t_stack *b, int nbr)
+{
+    int position;
+    t_stack *current;
+	
+	current = b;
+	position = 0;
+    while (current && current->nbr > nbr)
+    {
+        position++;
+        current = current->next;
+    }
+    return (position);
+}
+
+int ft_find_index(t_stack *a, int nbr)
+{
+    int index;
+	t_stack *current;
+
+	index = 0;
+    current = a;
+    while (current)
+    {
+        if (current->nbr == nbr)
+            break ;
+        index++;
+        current = current->next;
+    }
+    if (current == NULL)
+        return (-1);
+    return (index);
 }

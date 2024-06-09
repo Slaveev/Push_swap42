@@ -33,3 +33,53 @@ int	if_sorted(t_stack *stack_one)
 	}
 	return (0);
 }
+
+int	find_median(t_stack *stack, int size)
+{
+	int *values;
+	int i;
+	t_stack *current;
+	
+	values = malloc(sizeof(int) * size);
+	current = stack;
+	i = 0;
+	while (current)
+	{
+		values[i++] = current->nbr;
+		current = current->next;
+	}
+	qsort(values, size, sizeof(int), compare_int);
+	int median = values[size / 2];
+	free(values);
+	return (median);
+}
+
+int get_min_index(t_stack *stack)
+{
+    t_stack *current;
+    int min_value;
+    int min_index;
+    int index;
+	
+	current = stack;
+	min_value = INT_MAX;
+	min_index = 0;
+	index = 0;
+    while (current)
+    {
+        if (current->nbr < min_value)
+        {
+            min_value = current->nbr;
+            min_index = index;
+        }
+        current = current->next;
+        index++;
+    }
+    return min_index;
+}
+
+int compare_int(const void *a, const void *b)
+{
+	return (*(int *)a - *(int *)b);
+}
+
